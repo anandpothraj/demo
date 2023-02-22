@@ -1,21 +1,25 @@
 import React from 'react';
-import axios from 'axios';
 
 const App = () => {
 
+  const name = "Anand Pothraj";
+  const email = "anandpothraj@gmail.com";
+  const message = "Message";
+
   const sendMessage = async () => {
     try {
-      const sendMessageDetails = {
-        "name" : "name",
-        "email" : "email@gmail.com",
-        "message" : "message"
-      }
-      const config = {
-        "Content-type": "application/json"
-      };
-      const response = await axios.post('https://backend-portfolio-anand.onrender.com/api/contact/sendMessage',sendMessageDetails,{ headers: config });
-      if (response.status === 201) {
-        console.log(response);
+      const res = await fetch("https://backend-portfolio-anand.onrender.com/api/contact/sendMessage", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          name, email, message
+        })
+      });
+      const data = await res.json();
+      if (data.status === 201) {
+        console.log(data);
       }
     } catch (e) {
       if (e.response && e.response.status !== 201) {
