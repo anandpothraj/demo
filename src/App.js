@@ -1,26 +1,25 @@
 import React from 'react';
+import { registerfunc } from './services/Api';
 
 const App = () => {
 
-  const name = "Anand Pothraj";
-  const email = "anandpothraj@gmail.com";
-  const message = "Message";
-
   const sendMessage = async () => {
     try {
-      const res = await fetch("https://backend-portfolio-anand.onrender.com/api/contact/sendMessage", {
-        method: "POST",
-        mode : "no-cors",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-          name, email, message
-        })
-      });
-      const data = await res.json();
-      if (data.status === 201) {
-        console.log(data);
+
+      const header = {
+        "Content-Type": "application/json"
+      }
+
+      const data = {
+        "name" : "Anand Pothraj",
+        "email" : "anandpothraj@gmail.com",
+        "message" : "Message",
+      }
+
+      const response = await registerfunc(data,header);
+
+      if (response.status === 200) {
+        console.log(response);
       }
     } catch (e) {
       if (e.response && e.response.status !== 201) {
