@@ -10,6 +10,7 @@ const App = () => {
     try {
       const res = await fetch("https://backend-portfolio-anand.onrender.com/api/contact/sendMessage", {
         method: "POST",
+        mode : "no-cors",
         headers: {
           "Content-Type": "application/json"
         },
